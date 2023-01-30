@@ -1,0 +1,47 @@
+import java.util.Stack;
+import java.lang.Character;
+
+public class Main {
+    //method to check if brackets are balanced
+    static boolean checkIfBalanced(String expression){
+        //condition returns true if the input string is empty
+        if(expression.isEmpty()){
+            return true;
+        }
+        Stack<Character> brackets = new Stack<>();
+        //traverses the input string
+        for (int i=0; i<expression.length(); i++){
+             char brace = expression.charAt(i);
+             //condition checks that the character is an open braces and stores them in a stack
+            if((brace == '{') || (brace == '(') || (brace == '[')){
+                brackets.push(brace);
+            }
+            //condition checks that the character is a closing braces
+            if((brace == '}') || (brace == ')') || (brace == ']')){
+                //condition the stack is empty it returns false
+                if(brackets.isEmpty()){
+                    return false;
+                }
+                char lastBrace = brackets.peek();
+                //condition checks if the closing brace and the last stored brace is equal and pops out the brace
+                if(((brace == '}') && (lastBrace == '{')) || ((brace == ')') && (lastBrace == '(')) ||
+                        ((brace == ']') && (lastBrace == '['))){
+                             brackets.pop();
+                }
+            }
+        }
+        //returns true if the stack is empty else returns false
+        return brackets.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        String input = "{ ( [ ] ) }";
+        //calls the method to validate that the given input string has balanced brackets
+        if(checkIfBalanced(input)){
+            System.out.println("The entered String has Balanced Brackets");
+        }
+        else{
+            System.out.println("The entered Strings do not contain Balanced Brackets");
+        }
+    }
+}
